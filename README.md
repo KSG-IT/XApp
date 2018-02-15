@@ -23,7 +23,7 @@ MacOS: `sdk.dir = /Users/*USERNAME*/Library/Android/sdk`
 Linux: `sdk.dir = /home/*USERNAME*/Android/Sdk`
 ```
 
-Where `USERNAME` is the username of your computer.
+Where `*USERNAME*` is the username of your computer.
 
 
 3. Install project dependencies by running `npm install`
@@ -34,7 +34,7 @@ Where `USERNAME` is the username of your computer.
 2. Compile the application by running `react-native run-android`
 3. Make sure the `Debug server host & port for device` setting is pointed to the development server under `Development Settings` on your phone.
 
-The only time you need to recompile the project is when you change the file structure of the project, add native code, or add new dependencies.
+The only time you need to recompile the project is when you either add/change native code, or add new dependencies.
 
 ### Virtual Device
 You can use the following software to run the application virtually on your computer.
