@@ -1,58 +1,32 @@
 import React from "react";
-import { StackNavigator, TabNavigator } from "react-navigation";
-import { FontAwesome } from "react-native-vector-icons";
+import { StackNavigator, DrawerNavigator, } from "react-navigation";
 
 import HomeScreen from './home';
-import LoginScreen from './login';
 import SettingsScreen from './settings';
 
-export const SignedOut = StackNavigator({
-  Login: {
-    screen: LoginScreen,
-  },
-  Home: {
-    screen: HomeScreen,
-  },
+import DrawerMenu from '../components/Drawer';
+
+const stackNavigator = StackNavigator({
+  Home: { screen: HomeScreen },
+  Settings: {screen: SettingsScreen },
+}, {
+  headerMode: 'none',
+  //Disable animation
+  transitionConfig: () => ({ screenInterpolator: () => null }),
 });
 
-export const SignedIn = TabNavigator(
-  {
-    Home: {
-      screen: HomeScreen,
-    },
-    Settings: {
-      screen: SettingsScreen,
-    }
-  },
-);
-
 export const createRootNavigator = () => {
-  return StackNavigator(
+  return DrawerNavigator(
     {
-      SignedIn: {
-        screen: SignedIn,
-        navigationOptions: {
-          gesturesEnabled: false
-        }
-      },
-      SignedOut: {
-        screen: SignedOut,
-        navigationOptions: {
-          gesturesEnabled: false
-        }
+      Stack: {
+        screen: stackNavigator
       }
-    },
-    {
-      initialRouteName: 'Home',
-      navigationOptions: {
-        headerStyle: {
-          backgroundColor: '#f4511e',
-        },
-        headerTintColor: '#fff',
-        headerTitleStyle: {
-          fontWeight: 'bold',
-        },
+    }, {
+      contentComponent: DrawerMenu,
+      contentOptions: {
+        style: {
+          flex: 1,
+        }
       },
-    }
-  );
+    });
 };

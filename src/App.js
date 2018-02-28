@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
+import { ThemeProvider } from 'react-native-material-ui';
 
 import { createRootNavigator } from "./routes";
-// import { isSignedIn } from "./auth";
 
 class App extends Component {
   constructor(props) {
+    console.log("APP");
     super(props);
 
     this.state = {
@@ -13,24 +14,14 @@ class App extends Component {
     };
   }
 
-  componentWillMount() {
-    // isSignedIn()
-    //   .then(res => this.setState({ signedIn: res, checkedSignIn: true }))
-    //   .catch(err => alert("An error occurred"));
-  }
-
-
   render() {
-    const { checkedSignIn, signedIn } = this.state;
+    const Routes = createRootNavigator();
 
-    // If we haven't checked AsyncStorage yet, don't render anything
-    if (!checkedSignIn) {
-      return null;
-    }
-
-    const Layout = createRootNavigator(signedIn);
-
-    return <Layout />;
+    return (
+      <ThemeProvider>
+        <Routes/>
+      </ThemeProvider>
+    );
   }
 }
 

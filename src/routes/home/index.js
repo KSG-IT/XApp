@@ -1,31 +1,22 @@
 import React, { Component } from 'react';
 import {
-  View,
-  Button,
+  Text,
 } from 'react-native';
+import { Toolbar } from 'react-native-material-ui';
+
+import Container from "../../components/Container";
 
 class HomeScreen extends Component {
-  static navigationOptions = {
-    headerTitle: 'Home',
-    headerRight: (
-      <Button
-        onPress={() => alert('This is a button!')}
-        title="Info"
-        color="#fff"
-      />
-    ),
-
-  };
-
   render() {
     return (
-      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <Button
-          title="Go to Details"
-          onPress={() => this.props.navigation.navigate('Details')}
+      <Container>
+        <Toolbar
+          leftElement="menu"
+          centerElement="Home"
+          onLeftElementPress={() => this.props.navigation.navigate('DrawerOpen')}
         />
-      </View>
-
+        <Text>Home</Text>
+      </Container>
     );
   }
 }

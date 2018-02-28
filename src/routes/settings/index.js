@@ -1,19 +1,22 @@
 import React, { Component } from 'react';
 import {
   Text,
-  View,
 } from 'react-native';
+import { Toolbar } from 'react-native-material-ui';
+
+import Container from "../../components/Container";
 
 class SettingsScreen extends Component {
-  static navigationOptions = {
-    headerTitle: 'Settings',
-  };
-
   render() {
     return (
-      <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-        <Text>Settings Screen</Text>
-      </View>
+      <Container>
+        <Toolbar
+          leftElement="menu"
+          centerElement="Settings"
+          onLeftElementPress={() => this.props.navigation.navigate('DrawerOpen')}
+        />
+        <Text>Settings</Text>
+      </Container>
     );
   }
 }

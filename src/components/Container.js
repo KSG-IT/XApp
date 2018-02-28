@@ -1,12 +1,5 @@
-import { View, StyleSheet } from 'react-native';
 import React, { Component } from 'react';
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#555555'
-  },
-});
+import { View, StyleSheet } from 'react-native';
 
 class Container extends Component {
   render() {
@@ -17,5 +10,12 @@ class Container extends Component {
     );
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#555555',
+  },
+});
 
 export default Container;
