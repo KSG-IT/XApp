@@ -4,7 +4,7 @@ import {
 } from 'react-native';
 import { Toolbar } from 'react-native-material-ui';
 
-import Container from "../../components/Container";
+import Container from '../../components/Container';
 
 class SettingsScreen extends Component {
   render() {
@@ -13,7 +13,7 @@ class SettingsScreen extends Component {
         <Toolbar
           leftElement="menu"
           centerElement="Settings"
-          onLeftElementPress={() => this.props.navigation.navigate('DrawerOpen')}
+          onLeftElementPress={() => this.props.navigation.navigate("DrawerOpen")}
         />
         <Text>Settings</Text>
       </Container>

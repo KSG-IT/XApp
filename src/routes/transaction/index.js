@@ -3,6 +3,7 @@ import {
   Text,
   Platform
 } from 'react-native';
+import { connect } from 'react-redux';
 import { Toolbar } from 'react-native-material-ui';
 import NfcManager from 'react-native-nfc-manager';
 
@@ -29,20 +30,20 @@ class TransactionScreen extends Component {
           this.startNfc();
           this.startDetection();
         }
-      })
+      });
   }
 
   startNfc() {
     NfcManager.start()
       .then(result => {
-        console.log('Started NFC', result);
+        console.log("Started NFC", result);
       })
       .catch(error => {
-        console.warn('Starting NFC failed', error);
+        console.warn("Starting NFC failed", error);
         this.setState({supported: false});
       });
 
-    if (Platform.OS === 'android') {
+    if (Platform.OS === "android") {
       NfcManager.isEnabled()
         .then(enabled => {
           this.setState({enabled});
@@ -56,15 +57,15 @@ class TransactionScreen extends Component {
   startDetection = () => {
     NfcManager.registerTagEvent(this.onTagDiscovered)
       .then(result => {
-        console.log('registerTagEvent OK', result)
+        console.log("registerTagEvent OK", result)
       })
       .catch(error => {
-        console.warn('registerTagEvent fail', error)
+        console.warn("registerTagEvent fail", error)
       })
   };
 
   onTagDiscovered = tag => {
-    console.log('Tag Discovered', tag);
+    console.log("Tag Discovered", tag);
     this.setState({tag});
   };
 
@@ -76,7 +77,7 @@ class TransactionScreen extends Component {
         <Toolbar
           leftElement="menu"
           centerElement="Transaction"
-          onLeftElementPress={() => this.props.navigation.navigate('DrawerOpen')}
+          onLeftElementPress={() => this.props.navigation.navigate("DrawerOpen")}
         />
         <Text>
           {cardId ? cardId : "searching.."}
@@ -86,4 +87,8 @@ class TransactionScreen extends Component {
   }
 }
 
-export default TransactionScreen;
+const mapStateToProps = (state, props) => ({
+  loggedIn: state.authentication.loggedIn,
+});
+
+export default connect(mapStateToProps)(TransactionScreen);

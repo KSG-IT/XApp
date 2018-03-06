@@ -14,7 +14,7 @@ class Container extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#555555',
+    backgroundColor: "#555555",
   },
 });
 
