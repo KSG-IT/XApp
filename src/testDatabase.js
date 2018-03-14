@@ -15,6 +15,13 @@ const users = {
     dec: "36108944635402500",
     reversedDec: "1153618868979840",
   },
+  "417314149": {
+    name: "Tobias Hansen",
+    hex: "18dfb565",
+    reversedHex: "65b5df18",
+    dec: "417314149",
+    reversedDec: "1706417944",
+  },
 };
 
 export default users;

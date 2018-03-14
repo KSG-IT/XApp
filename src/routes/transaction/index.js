@@ -8,6 +8,7 @@ import { Toolbar } from 'react-native-material-ui';
 import NfcManager from 'react-native-nfc-manager';
 
 import Container from "../../components/Container";
+import { reverseHexadecimalNumber } from '../../utils/numberConverter';
 
 class TransactionScreen extends Component {
   constructor(props) {
@@ -69,8 +70,11 @@ class TransactionScreen extends Component {
     this.setState({tag});
   };
 
+
+
   render() {
     const cardId = this.state.tag.id ? this.state.tag.id.toLowerCase() : "";
+
 
     return (
       <Container>
@@ -80,7 +84,7 @@ class TransactionScreen extends Component {
           onLeftElementPress={() => this.props.navigation.navigate("DrawerOpen")}
         />
         <Text>
-          {cardId ? cardId : "searching.."}
+          {cardId ? parseInt(reverseHexadecimalNumber(cardId), 16) : "searching.."}
         </Text>
       </Container>
     );
