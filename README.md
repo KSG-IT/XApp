@@ -45,3 +45,12 @@ Install [VirtualBox](https://www.virtualbox.org/wiki/Linux_Downloads)
 Install [Genymotion](https://www.genymotion.com/download)
 
 Create and start a virtual device through Genymoiton
+
+## Deploy
+1. Make sure you have added the keystore in `./android/app`, and defined the keystore properties in `~/.gradle/gradle.properties`
+2. Run `./gradlew assembleRelease` from `./android`
+3. Deploy apk to device by `adb -s ce05171539f8d13405 install app/build/outputs/apk/app-release.apk`
+
+## Tips
+1. Reload from the terminal `adb shell input text "RR"`
+2. With more devices connected you can specify device with `adb -s device-name`, `adb devices` lists names for all connected devices
