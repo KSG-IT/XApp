@@ -1,3 +1,5 @@
+// @flow
+
 import React, { Component } from 'react';
 import {
   Text,
@@ -5,6 +7,7 @@ import {
 import {
   Toolbar,
   Button,
+  Card,
 } from 'react-native-material-ui';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -12,7 +15,14 @@ import { bindActionCreators } from 'redux';
 import Container from '../../components/Container';
 import { goToLogin, goToTransactions } from '../../actions/navigation';
 
-class HomeScreen extends Component {
+type Props = {
+  loggedIn: boolean,
+  navigation: Object,
+  goToLogin: Function,
+  goToTransactions: Function,
+}
+
+class HomeScreen extends Component<Props> {
   render() {
     return (
       <Container>
@@ -21,18 +31,20 @@ class HomeScreen extends Component {
           centerElement="Home"
           onLeftElementPress={() => this.props.navigation.navigate("DrawerOpen")}
         />
-        <Text>Home</Text>
-        <Button raised primary text="Go to Transaction view"
-                onPress={() => this.props.goToTransactions(this.props.loggedIn)}
-        />
-        <Button raised primary text="Go to Login view"
-                onPress={() => this.props.goToLogin()} />
+        <Card>
+          <Text>Home</Text>
+          <Button raised primary text="Go to Transaction view"
+                  onPress={() => this.props.goToTransactions(this.props.loggedIn)}
+          />
+          <Button raised primary text="Go to Login view"
+                  onPress={() => this.props.goToLogin()}/>
+        </Card>
       </Container>
     );
   }
 }
 
-const mapStateToProps = (state, props) => ({
+const mapStateToProps = (state) => ({
   loggedIn: state.authentication.loggedIn,
 });
 

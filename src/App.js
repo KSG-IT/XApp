@@ -1,3 +1,5 @@
+// @flow
+
 import React, { Component } from 'react';
 import { ThemeProvider } from 'react-native-material-ui';
 import { reducer as formReducer } from 'redux-form';
@@ -29,7 +31,12 @@ const store = createStore(
   applyMiddleware(...middlewares)
 );
 
-class App extends Component {
+type Props = {
+  navigation: Object,
+  dispatch: Function,
+};
+
+class App extends Component<Props> {
   render() {
     return (
       <Provider store={store}>

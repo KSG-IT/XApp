@@ -1,10 +1,12 @@
+// @flow
+
 const auth = {
-  login (username, password) {
-    return Promise.resolve(true)
+  login (username: string, password: string): Promise<Object> {
+    return Promise.resolve({data: "true"})
   },
 
-  logout () {
-    return Promise.resolve(true)
+  logout (): Promise<Object> {
+    return Promise.resolve({data: "true"})
   },
 };
 

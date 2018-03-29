@@ -1,0 +1,6 @@
+{
+  "assortment": [
+    { "name": "test", "price": 15 },
+    { "name": "test2", "price": 5 }
+  ]
+}

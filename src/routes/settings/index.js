@@ -1,3 +1,5 @@
+// @flow
+
 import React, { Component } from 'react';
 import {
   Text,
@@ -6,7 +8,11 @@ import { Toolbar } from 'react-native-material-ui';
 
 import Container from '../../components/Container';
 
-class SettingsScreen extends Component {
+type Props = {
+  navigation: Object,
+}
+
+class SettingsScreen extends Component<Props> {
   render() {
     return (
       <Container>

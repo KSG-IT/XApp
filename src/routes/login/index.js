@@ -1,3 +1,5 @@
+// @flow
+
 import React, { Component } from 'react';
 import {
   Text,
@@ -9,7 +11,14 @@ import { connect } from 'react-redux';
 import Container from '../../components/Container';
 import { logIn, logOut } from '../../actions/authentication';
 
-class LoginScreen extends Component {
+type Props = {
+  loggedIn: boolean,
+  logIn: Function,
+  logOut: Function,
+  navigation: Object,
+}
+
+class LoginScreen extends Component<Props> {
   render() {
     const destination = (this.props.navigation.state.params && this.props.navigation.state.params.destination) ?
       this.props.navigation.state.params.destination : "Home";
@@ -30,7 +39,7 @@ class LoginScreen extends Component {
   }
 }
 
-const mapStateToProps = (state, props) => ({
+const mapStateToProps = (state) => ({
   loggedIn: state.authentication.loggedIn,
 });
 

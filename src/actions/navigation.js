@@ -1,6 +1,8 @@
+// @flow
+
 import { NavigationActions } from 'react-navigation';
 
-export const goToSettings = (loggedIn) => (dispatch) => {
+export const goToSettings = (loggedIn: boolean) => (dispatch: Function) => {
   if (loggedIn) {
     dispatch(NavigationActions.navigate({routeName: "Settings"}));
   } else {
@@ -13,7 +15,7 @@ export const goToSettings = (loggedIn) => (dispatch) => {
   }
 };
 
-export const goToTransactions = (loggedIn) => (dispatch) => {
+export const goToTransactions = (loggedIn: boolean) => (dispatch: Function) => {
   if (loggedIn) {
     dispatch(NavigationActions.navigate({routeName: "Transactions"}));
   } else {
@@ -26,10 +28,10 @@ export const goToTransactions = (loggedIn) => (dispatch) => {
   }
 };
 
-export const goToLogin = () => (dispatch) => {
+export const goToLogin = () => (dispatch: Function) => {
   dispatch(NavigationActions.navigate({routeName: "Login"}));
 };
 
-export const goToHome = () => (dispatch) => {
+export const goToHome = () => (dispatch: Function) => {
   dispatch(NavigationActions.navigate({routeName: "Home"}));
 };

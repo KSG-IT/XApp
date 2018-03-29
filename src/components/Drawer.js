@@ -1,3 +1,5 @@
+// @flow
+
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -10,7 +12,18 @@ import { Toolbar, Drawer } from 'react-native-material-ui';
 import Container from './Container';
 import { goToHome, goToSettings } from '../actions/navigation';
 
-class DrawerMenu extends Component {
+type State = {
+  active: string,
+}
+
+type Props = {
+  loggedIn: boolean,
+  navigation: Object,
+  goToSettings: Function,
+  goToHome: Function,
+}
+
+class DrawerMenu extends Component<Props, State> {
   constructor(props, context) {
     super(props, context);
 
@@ -64,7 +77,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const mapStateToProps = (state, props) => ({
+const mapStateToProps = (state) => ({
   loggedIn: state.authentication.loggedIn,
 });
 

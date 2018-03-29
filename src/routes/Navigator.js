@@ -1,3 +1,5 @@
+// @flow
+
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { DrawerNavigator, StackNavigator, addNavigationHelpers } from 'react-navigation'
@@ -34,8 +36,12 @@ export const Navigator = new DrawerNavigator({
   },
 });
 
+type Props = {
+  navigation: Object,
+  dispatch: Function,
+};
 
-class RootNavigator extends Component {
+class RootNavigator extends Component<Props> {
   render() {
     return (
       <Navigator navigation={addNavigationHelpers({
