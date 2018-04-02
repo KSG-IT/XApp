@@ -4,8 +4,6 @@ import React, { Component } from 'react';
 import {
   StyleSheet,
   View,
-  Text,
-  Platform,
 } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from "redux";
@@ -14,14 +12,12 @@ import {
   Button,
   Card,
 } from 'react-native-material-ui';
-import NfcManager from 'react-native-nfc-manager';
 
 import Container from "../../components/Container";
-import { reverseHexadecimalNumber } from '../../utils/numberConverter';
 import Article from '../../model/article';
 import { getActiveArticles, getArticles } from "../../actions/articles";
 import { goBack } from "../../actions/navigation";
-
+import NfcScanner from './NFCScanner';
 
 type Props = {
   articles: Map<number, Article>,
@@ -31,79 +27,17 @@ type Props = {
   goBack: Function,
 }
 
-type State = {
-  supported: boolean,
-  enabled: boolean,
-  tag: Object,
-}
-
-class TransactionScreen extends Component<Props, State> {
+class TransactionScreen extends Component<Props> {
   constructor(props) {
     super(props);
-
-    this.state = {
-      supported: true,
-      enabled: false,
-      tag: {},
-    }
   }
 
   componentDidMount() {
     this.props.getArticles();
     this.props.getActiveArticles();
-
-    NfcManager.isSupported()
-      .then(supported => {
-        console.log("NFC is supported");
-        this.setState({ supported });
-
-        if (supported) {
-          this.startNfc();
-          this.startDetection();
-        }
-      });
   }
 
-  startNfc() {
-    NfcManager.start()
-      .then(result => {
-        console.log("Started NFC", result);
-      })
-      .catch(error => {
-        console.warn("Starting NFC failed", error);
-        this.setState({ supported: false });
-      });
-
-    if (Platform.OS === "android") {
-      NfcManager.isEnabled()
-        .then(enabled => {
-          this.setState({ enabled });
-        })
-        .catch(err => {
-          console.log(err);
-        })
-    }
-  };
-
-  startDetection = () => {
-    NfcManager.registerTagEvent(this.onTagDiscovered)
-      .then(result => {
-        console.log("registerTagEvent OK", result)
-      })
-      .catch(error => {
-        console.warn("registerTagEvent fail", error)
-      })
-  };
-
-  onTagDiscovered = tag => {
-    console.log("Tag Discovered", tag);
-    this.setState({ tag });
-  };
-
-
   render() {
-    const cardId = this.state.tag.id ? this.state.tag.id.toLowerCase() : "";
-
     return (
       <Container>
         <Toolbar
@@ -114,24 +48,25 @@ class TransactionScreen extends Component<Props, State> {
 
         <View style={styles.search}>
           <Card style={{ container: { flex: 1 } }}>
-            <Text>
-              {cardId ? parseInt(reverseHexadecimalNumber(cardId), 16) : "searching.."}
-            </Text>
+            <NfcScanner/>
           </Card>
         </View>
 
         <View style={styles.articles}>
-            {this.props.articles && this.props.activeArticles && (
-              Array.from(this.props.activeArticles.keys()).map((id) => {
+          {this.props.articles && this.props.activeArticles && (
+            Array.from(this.props.activeArticles.keys()).map((id) => {
+              const article = this.props.articles.get(id);
+              if (article) {
                 return (
                   <Button
                     key={id}
                     raised
                     primary
-                    style={{text: styles.itemText, container: {margin: 3}}}
-                    text={this.props.articles.get(id).getDisplayText()}/>
+                    style={{ text: styles.itemText, container: { margin: 3 } }}
+                    text={article.getDisplayText()}/>
                 );
-              }))}
+              }
+            }))}
         </View>
 
       </Container>
@@ -149,7 +84,7 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   itemText: {
-   textAlign: 'center',
+    textAlign: 'center',
   },
   text: {
     color: '#000000'
