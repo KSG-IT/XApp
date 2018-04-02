@@ -10,11 +10,13 @@ import { connect } from 'react-redux';
 
 import Container from '../../components/Container';
 import { logIn, logOut } from '../../actions/authentication';
+import { goBack } from "../../actions/navigation";
 
 type Props = {
   loggedIn: boolean,
   logIn: Function,
   logOut: Function,
+  goBack: Function,
   navigation: Object,
 }
 
@@ -26,9 +28,9 @@ class LoginScreen extends Component<Props> {
     return (
       <Container>
         <Toolbar
-          leftElement="menu"
+          leftElement="arrow-back"
           centerElement="Log In"
-          onLeftElementPress={() => this.props.navigation.navigate("DrawerOpen")}
+          onLeftElementPress={() => this.props.goBack()}
         />
         <Text>You need to be logged in to access the {destination} screen</Text>
         <Button raised primary text="Log in"
@@ -46,7 +48,8 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = dispatch =>
   bindActionCreators({
     logIn,
-    logOut
+    logOut,
+    goBack,
   }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoginScreen);

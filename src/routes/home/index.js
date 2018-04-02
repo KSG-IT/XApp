@@ -13,13 +13,13 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import Container from '../../components/Container';
-import { goToLogin, goToTransactions } from '../../actions/navigation';
+import { goToLogin, goToTransactions, openDrawer } from '../../actions/navigation';
 
 type Props = {
   loggedIn: boolean,
-  navigation: Object,
   goToLogin: Function,
   goToTransactions: Function,
+  openDrawer: Function,
 }
 
 class HomeScreen extends Component<Props> {
@@ -29,7 +29,7 @@ class HomeScreen extends Component<Props> {
         <Toolbar
           leftElement="menu"
           centerElement="Home"
-          onLeftElementPress={() => this.props.navigation.navigate("DrawerOpen")}
+          onLeftElementPress={() => this.props.openDrawer()}
         />
         <Card>
           <Text>Home</Text>
@@ -52,6 +52,7 @@ const mapDispatchToProps = dispatch =>
   bindActionCreators({
     goToLogin,
     goToTransactions,
+    openDrawer,
   }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomeScreen);

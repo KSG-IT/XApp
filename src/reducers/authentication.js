@@ -4,14 +4,13 @@ import {
   LOG_IN_SUCCESS, LOG_OUT_SUCCESS
 } from '../actions/constants';
 
-type Props = {
-  state: {
-    loggedIn: boolean,
-    destination: string,
-  },
-  action: {
-    type: string
-  }
+type State = {
+  loggedIn: boolean,
+  destination: string,
+}
+
+type Action = {
+  type: string
 }
 
 const initialState = {
@@ -19,7 +18,7 @@ const initialState = {
   destination: "Home",
 };
 
-function authentication({state = initialState, action}: Props) {
+function authentication(state: State = initialState, action: Action) {
   if (action.type === LOG_IN_SUCCESS) {
     return {
       ...state,

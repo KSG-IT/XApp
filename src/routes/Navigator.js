@@ -6,6 +6,7 @@ import { DrawerNavigator, StackNavigator, addNavigationHelpers } from 'react-nav
 
 import { addListener } from '../utils/redux';
 import SettingsScreen from './settings';
+import ChooseActiveArticlesScreen from './settings/ChooseActiveArticles';
 import HomeScreen from './home';
 import LoginScreen from './login';
 import TransactionsScreen from './transaction';
@@ -13,6 +14,7 @@ import DrawerMenu from '../components/Drawer';
 
 const stackNavigator = new StackNavigator({
   Settings: {screen: SettingsScreen},
+  ChooseActiveArticles: {screen: ChooseActiveArticlesScreen},
   Login: {screen: LoginScreen},
   Home: {screen: HomeScreen},
   Transactions: {screen: TransactionsScreen}

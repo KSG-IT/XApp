@@ -1,6 +1,77 @@
-{
-  "assortment": [
-    { "name": "test", "price": 15 },
-    { "name": "test2", "price": 5 }
-  ]
-}
+[
+  {
+    "_id": 1,
+    "_name": "test",
+    "_price": 5
+  },
+  {
+    "_id": 2,
+    "_name": "test2",
+    "_price": 55
+  },
+  {
+    "_id": 3,
+    "_name": "test3",
+    "_price": 555
+  },
+  {
+    "_id": 4,
+    "_name": "test4",
+    "_price": 5555
+  },
+  {
+    "_id": 5,
+    "_name": "test5",
+    "_price": 55555
+  },
+  {
+    "_id": 6,
+    "_name": "test",
+    "_price": 4
+  },
+  {
+    "_id": 7,
+    "_name": "test2",
+    "_price": 44
+  },
+  {
+    "_id": 8,
+    "_name": "test3",
+    "_price": 444
+  },
+  {
+    "_id": 9,
+    "_name": "test4",
+    "_price": 4444
+  },
+  {
+    "_id": 10,
+    "_name": "test5",
+    "_price": 44444
+  },
+  {
+    "_id": 11,
+    "_name": "test",
+    "_price": 3
+  },
+  {
+    "_id": 12,
+    "_name": "test2",
+    "_price": 33
+  },
+  {
+    "_id": 13,
+    "_name": "test3",
+    "_price": 333
+  },
+  {
+    "_id": 14,
+    "_name": "test4",
+    "_price": 3333
+  },
+  {
+    "_id": 15,
+    "_name": "test5",
+    "_price": 33333
+  }
+]

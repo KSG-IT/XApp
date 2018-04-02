@@ -59,7 +59,7 @@ class DrawerMenu extends Component<Props, State> {
                   active: this.state.active === "settings",
                   onPress: () => {
                     this.setState({ active: "settings" });
-                    this.props.goToSettings(this.props.loggedIn);
+                    this.props.goToSettings();
                   },
                 },
               ]}
