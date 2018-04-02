@@ -12,6 +12,7 @@ import { bindActionCreators } from "redux";
 import {
   Toolbar,
   Button,
+  Card,
 } from 'react-native-material-ui';
 import NfcManager from 'react-native-nfc-manager';
 
@@ -111,35 +112,50 @@ class TransactionScreen extends Component<Props, State> {
           onLeftElementPress={() => this.props.goBack()}
         />
 
-        <View style={styles.container}>
-          {this.props.articles && this.props.activeArticles && (
-            Array.from(this.props.activeArticles.keys()).map((id) => {
-              return (
-                <Button
-                  key={id}
-                  raised
-                  primary
-                  text={this.props.articles.get(id).getDisplayText()}/>
-              );
-            }))}
+        <View style={styles.search}>
+          <Card style={{ container: { flex: 1 } }}>
+            <Text>
+              {cardId ? parseInt(reverseHexadecimalNumber(cardId), 16) : "searching.."}
+            </Text>
+          </Card>
         </View>
 
-        <Text>
-          {cardId ? parseInt(reverseHexadecimalNumber(cardId), 16) : "searching.."}
-        </Text>
+        <View style={styles.articles}>
+            {this.props.articles && this.props.activeArticles && (
+              Array.from(this.props.activeArticles.keys()).map((id) => {
+                return (
+                  <Button
+                    key={id}
+                    raised
+                    primary
+                    style={{text: styles.itemText, container: {margin: 3}}}
+                    text={this.props.articles.get(id).getDisplayText()}/>
+                );
+              }))}
+        </View>
+
       </Container>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
+  articles: {
+    flex: 2 / 3,
     flexDirection: 'row',
     flexWrap: 'wrap',
+    justifyContent: "center",
+    alignItems: "center",
+    padding: 10,
+  },
+  itemText: {
+   textAlign: 'center',
   },
   text: {
     color: '#000000'
+  },
+  search: {
+    flex: 1 / 3,
   }
 });
 

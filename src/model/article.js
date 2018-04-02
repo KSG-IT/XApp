@@ -23,5 +23,5 @@ Article.prototype.getId = function(): number {
 };
 
 Article.prototype.getDisplayText = function(): string {
-  return this._name + " - " + this._price + ",-"
+  return this._name + "\n" + this._price + ",-"
 };
