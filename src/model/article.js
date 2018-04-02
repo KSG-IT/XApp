@@ -21,3 +21,7 @@ Article.prototype.setName = function (name: string) {
 Article.prototype.getId = function(): number {
   return this._id;
 };
+
+Article.prototype.getDisplayText = function(): string {
+  return this._name + " - " + this._price + ",-"
+};

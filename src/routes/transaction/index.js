@@ -8,6 +8,7 @@ import {
   Platform,
 } from 'react-native';
 import { connect } from 'react-redux';
+import { bindActionCreators } from "redux";
 import {
   Toolbar,
   Button,
@@ -16,10 +17,17 @@ import NfcManager from 'react-native-nfc-manager';
 
 import Container from "../../components/Container";
 import { reverseHexadecimalNumber } from '../../utils/numberConverter';
+import Article from '../../model/article';
+import { getActiveArticles, getArticles } from "../../actions/articles";
+import { goBack } from "../../actions/navigation";
 
 
 type Props = {
-  navigation: Object,
+  articles: Map<number, Article>,
+  activeArticles: Map<number, boolean>,
+  getActiveArticles: Function,
+  getArticles: Function,
+  goBack: Function,
 }
 
 type State = {
@@ -40,6 +48,9 @@ class TransactionScreen extends Component<Props, State> {
   }
 
   componentDidMount() {
+    this.props.getArticles();
+    this.props.getActiveArticles();
+
     NfcManager.isSupported()
       .then(supported => {
         console.log("NFC is supported");
@@ -95,17 +106,22 @@ class TransactionScreen extends Component<Props, State> {
     return (
       <Container>
         <Toolbar
-          leftElement="menu"
+          leftElement="arrow-back"
           centerElement="Transaction"
-          onLeftElementPress={() => this.props.navigation.navigate("DrawerOpen")}
+          onLeftElementPress={() => this.props.goBack()}
         />
 
         <View style={styles.container}>
-          {items.map((color) => {
-            return (
-              <Button raised primary style={styles.item} text={color}/>
-            );
-          })}
+          {this.props.articles && this.props.activeArticles && (
+            Array.from(this.props.activeArticles.keys()).map((id) => {
+              return (
+                <Button
+                  key={id}
+                  raised
+                  primary
+                  text={this.props.articles.get(id).getDisplayText()}/>
+              );
+            }))}
         </View>
 
         <Text>
@@ -116,32 +132,28 @@ class TransactionScreen extends Component<Props, State> {
   }
 }
 
-const items = [
-  "test", "test2", "test3",
-  "test", "test2", "test3",
-  "test", "test2", "test3",
-  "test", "test2", "test3"
-];
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'row',
     flexWrap: 'wrap',
   },
-  item: {
-    width: 120,
-    height: 100,
-    marginHorizontal: 5,
-    marginVertical: 5,
-  },
   text: {
     color: '#000000'
   }
 });
 
-const mapStateToProps = (state, props) => ({
+const mapStateToProps = (state) => ({
   loggedIn: state.authentication.loggedIn,
+  articles: state.articles.articles,
+  activeArticles: state.articles.activeArticles,
 });
 
-export default connect(mapStateToProps)(TransactionScreen);
+const mapDispatchToProps = dispatch =>
+  bindActionCreators({
+    getArticles,
+    getActiveArticles,
+    goBack,
+  }, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(TransactionScreen);
