@@ -1,15 +1,24 @@
 // @flow
 
 import React, { Component } from 'react';
-import {
+import {
   Platform,
   Text,
+  View,
+  StyleSheet,
 } from 'react-native';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import {
+  Button
+} from 'react-native-material-ui';
 import NfcManager from 'react-native-nfc-manager';
 
 import { reverseHexadecimalNumber } from '../../utils/numberConverter';
+import { loadUser } from "../../actions/users";
 
-type Props = {
+type Props = {
+  loadUser: Function,
 }
 
 type State = {
@@ -29,7 +38,7 @@ class NFCScanner extends Component<Props, State> {
     }
   }
 
-  componentDidMount() {
+  componentDidMount() {
     NfcManager.isSupported()
       .then(supported => {
         console.log("NFC is supported");
@@ -74,19 +83,45 @@ class NFCScanner extends Component<Props, State> {
   };
 
   onTagDiscovered = (tag: Object) => {
+    //TODO: Find out what the Tag object contains
     console.log("Tag Discovered", tag);
-    this.setState({ tag });
+    const cardIdHex = tag.id.toLowerCase();
+    const cardIdDes = parseInt(reverseHexadecimalNumber(cardIdHex), 16);
+
+    this.props.loadUser(cardIdDes);
   };
 
-  render(){
-    const cardId = this.state.tag.id ? this.state.tag.id.toLowerCase() : "";
+  render() {
 
     return (
-      <Text>
-        {cardId ? parseInt(reverseHexadecimalNumber(cardId), 16) : "searching.."}
-      </Text>
+      <View style={styles.container}>
+        <Text>
+          Scan a card to start a purchase..
+        </Text>
+
+        {/* This is for debugging purposes, to avoid needing to use a nfc scanning while developing*/}
+        <Button
+          raised
+          primary
+          text={"Mimic a NFC card scan"}
+          onPress={() => this.onTagDiscovered({ id: "65b5df18" })}
+        />
+      </View>
     );
   }
 }
 
-export default NFCScanner;
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  }
+});
+
+const mapDispatchToProps = dispatch =>
+  bindActionCreators({
+    loadUser,
+  }, dispatch);
+
+export default connect(null, mapDispatchToProps)(NFCScanner);

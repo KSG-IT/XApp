@@ -15,11 +15,14 @@ import {
 
 import Container from "../../components/Container";
 import Article from '../../model/article';
+import User from '../../model/user';
 import { getActiveArticles, getArticles } from "../../actions/articles";
 import { goBack } from "../../actions/navigation";
 import NfcScanner from './NFCScanner';
+import PurchaseSummary from './PurchaseSummary';
 
 type Props = {
+  purchaser: User,
   articles: Map<number, Article>,
   activeArticles: Map<number, boolean>,
   getActiveArticles: Function,
@@ -38,6 +41,8 @@ class TransactionScreen extends Component<Props> {
   }
 
   render() {
+    console.log(this.props.purchaser);
+
     return (
       <Container>
         <Toolbar
@@ -48,7 +53,7 @@ class TransactionScreen extends Component<Props> {
 
         <View style={styles.search}>
           <Card style={{ container: { flex: 1 } }}>
-            <NfcScanner/>
+            {this.props.purchaser ? <PurchaseSummary/> : <NfcScanner/>}
           </Card>
         </View>
 
@@ -68,7 +73,6 @@ class TransactionScreen extends Component<Props> {
               }
             }))}
         </View>
-
       </Container>
     );
   }
@@ -98,6 +102,7 @@ const mapStateToProps = (state) => ({
   loggedIn: state.authentication.loggedIn,
   articles: state.articles.articles,
   activeArticles: state.articles.activeArticles,
+  purchaser: state.users.purchaser,
 });
 
 const mapDispatchToProps = dispatch =>

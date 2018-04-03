@@ -1,0 +1,26 @@
+[
+  {
+    "_name": "tobiasRuterReisekort",
+    "_balance": 500,
+    "_idHex": "8048e4d2351904",
+    "_idReversedHex": "041935d2e44880",
+    "_idDec": "36108944635402500",
+    "_idReversedDec": "1153618868979840"
+  },
+  {
+    "_name": "Pål Bergerskogen",
+    "_balance": 400,
+    "_idHex": "8048e4d2351904",
+    "_idReversedHex": "041935d2e44880",
+    "_idDec": "36108944635402500",
+    "_idReversedDec": "1153618868979840"
+  },
+  {
+    "_name": "Tobias Hansen",
+    "_balance": 1000,
+    "_idHex": "18dfb565",
+    "_idReversedHex": "65b5df18",
+    "_idDec": "417314149",
+    "_idReversedDec": "1706417944"
+  }
+]
